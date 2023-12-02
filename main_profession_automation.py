@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from profession_wsc_class.ProfessionWebScraper  import ProfessionWebScraper
 import numpy as np
+import pandas as pd
 def main():
     try:
         #Start indicator
@@ -34,9 +35,9 @@ def main():
         (jobs_on_page,nOPJ)=PWSC.job_cards()
         print('The number of found jobs per page: \n' + str(nOPJ))
         
-        data = list
-        for job in jobs_on_page:
-            data.append((job.text).split('\n'))
+        job_keys = jobs_on_page[0].__dict__.keys()
+        job_container = pd.DataFrame(vars(job) for job in jobs_on_page)
+
         #Load jobcards into a pandas frame
         
         #load the pd[] to an SQL database
